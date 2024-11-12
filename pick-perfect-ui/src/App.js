@@ -1,11 +1,9 @@
 import Login from "./components/Login";
+import Home from "./components/Home";
 
 function App() {
   return (
-    <>
-      <p1>Pick Perfect</p1>
-      <Login/>
-    </>
+    <Home/>
   );
 }
 
