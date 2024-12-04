@@ -20,7 +20,7 @@ export default function Home() {
       </div>
       <div>
         {file && <button onClick={() => setFile(null)}>X</button>}
-        {file && <img src={file} alt="Uploaded picture of a plan" />}
+        {file && <img src={file} alt="Plant" />}
       </div>
     </div>
   );

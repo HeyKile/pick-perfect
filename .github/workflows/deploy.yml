@@ -20,7 +20,7 @@ jobs:
         node-version: '14'
 
     - name: Install frontend dependencies
-      run: npm install
+      run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
       working-directory: ./pick-perfect-ui
 
     - name: Build the React app
