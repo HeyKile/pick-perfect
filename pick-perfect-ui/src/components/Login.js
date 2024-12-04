@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 function Login() {
   function checkPwd(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const pwdInput = formData.get("pwdInput");
+    // const formData = new FormData(event.target);
+    // const pwdInput = formData.get("pwdInput");
   }
 
   return (
