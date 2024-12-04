@@ -39,5 +39,5 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Deploy to App Engine
-      run: gcloud app deploy --quiet
+      run: gcloud app deploy --quiet --verbosity=debug
       working-directory: ./pick-perfect-ui
