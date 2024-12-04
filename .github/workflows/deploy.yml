@@ -1,0 +1,43 @@
+name: Build and Deploy to App Engine
+
+on:
+  push:
+    branches:
+      - main
+      - heykile/ui
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install frontend dependencies
+      run: npm install
+      working-directory: ./pick-perfect-ui
+
+    - name: Build the React app
+      run: npm run build
+      working-directory: ./pick-perfect-ui
+
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_APPENGINE_SA_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Deploy to App Engine
+      run: gcloud app deploy --quiet
+      working-directory: ./pick-perfect-ui
