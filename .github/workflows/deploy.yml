@@ -38,6 +38,14 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: List files in pick-perfect-ui
+      run: ls -la
+      working-directory: ./pick-perfect-ui
+
+    - name: List files in build directory
+      run: ls -la build
+      working-directory: ./pick-perfect-ui
+
     - name: Deploy to App Engine
       run: gcloud app deploy --quiet --verbosity=debug
       working-directory: ./pick-perfect-ui
