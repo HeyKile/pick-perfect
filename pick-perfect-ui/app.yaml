@@ -1,4 +1,5 @@
 runtime: nodejs20
+service: pick-perfect-ui
 handlers:
   - url: /
     static_files: build/index.html
