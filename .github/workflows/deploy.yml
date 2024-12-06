@@ -43,8 +43,10 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    # - name: Deploy to App Engine
+    #   uses: google-github-actions/deploy-appengine@v2
+    #   with:
+    #     deliverables: ./pick-perfect-ui/app.yaml
+    #     project_id: ${{ secrets.GCP_PROJECT_ID }}
     - name: Deploy to App Engine
-      uses: google-github-actions/deploy-appengine@v2
-      with:
-        deliverables: ./pick-perfect-ui/app.yaml
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
+      run: gcloud app deploy ./pick-perfect-ui/app.yaml --project ${{ secrets.GCP_PROJECT_ID }} --promote --verbosity=debug
