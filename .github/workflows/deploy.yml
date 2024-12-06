@@ -55,7 +55,7 @@ jobs:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         GCP_SA_KEY: ${{ secrets.GCP_APPENGINE_SA }}
       run: |
-        echo $GCP_SA_KEY | base64 --decode > $HOME/gcloud.json
+        echo $GCP_SA_KEY | base64 --decode > $HOME/gcloud.json || { echo "Invalid base64 input"; exit 1; }
         gcloud auth activate-service-account --key-file=$HOME/gcloud.json
         gcloud config set project $PROJECT_ID
         gcloud app deploy ./pick-perfect-ui/app.yaml --verbosity=debug
