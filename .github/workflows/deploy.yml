@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - heykile/ui
   workflow_dispatch:
 
 jobs:
@@ -43,14 +42,6 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    # - name: Deploy to App Engine
-    #   uses: google-github-actions/deploy-appengine@v2
-    #   with:
-    #     deliverables: ./pick-perfect-ui/app.yaml
-    #     project_id: ${{ secrets.GCP_PROJECT_ID }}
-    # - name: Deploy to App Engine
-    #   run: gcloud app deploy ./pick-perfect-ui/app.yaml --project ${{ secrets.GCP_PROJECT_ID }} --promote --verbosity=debug
-
     - name: Deploy to Google App Engine
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
@@ -59,5 +50,4 @@ jobs:
         echo "$GCP_SA_KEY_JSON" > $HOME/gcloud.json
         gcloud auth activate-service-account --key-file=$HOME/gcloud.json
         gcloud config set project $PROJECT_ID
-        ls
         gcloud app deploy ./pick-perfect-ui/app.yaml --verbosity=debug
