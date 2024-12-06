@@ -1,0 +1,57 @@
+name: Build and Deploy to App Engine
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Install frontend dependencies
+      run: npm install
+      working-directory: ./pick-perfect-ui
+
+    - name: Build the React app
+      run: npm run build
+      working-directory: ./pick-perfect-ui
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.GCP_APPENGINE_SA }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Deploy static assets to Cloud Storage
+      run: |
+        gsutil -m cp -r ./pick-perfect-ui/build/static/* gs://${{ secrets.GCP_PROJECT_ID }}.appspot.com/static/
+
+    - name: Deploy to Google App Engine
+      env:
+        PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        GCP_SA_KEY_JSON: ${{ secrets.GCP_APPENGINE_SA_KEY }}
+      run: |
+        echo "$GCP_SA_KEY_JSON" > $HOME/gcloud.json
+        gcloud auth activate-service-account --key-file=$HOME/gcloud.json
+        gcloud config set project $PROJECT_ID
+        gcloud app deploy ./pick-perfect-ui/app.yaml --quiet
