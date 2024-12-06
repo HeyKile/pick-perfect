@@ -38,14 +38,6 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         # credentials_json: ${{ secrets.GCP_APPENGINE_SA_KEY }}
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v2
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-    # - name: Deploy to App Engine
-    #   run: gcloud app deploy --verbosity=debug --service_account=
-    #   working-directory: ./pick-perfect-ui
     - name: Deploy to App Engine
       uses: google-github-actions/deploy-appengine@v2
       with:
