@@ -36,7 +36,7 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.GCP_APPENGINE_SA }}
+        service_account: ${{ secrets.GCP_GITHUB_ACTIONS_SA }}
 
     - name: Deploy to App Engine
       uses: google-github-actions/deploy-appengine@v2
