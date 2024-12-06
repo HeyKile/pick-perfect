@@ -45,6 +45,9 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: what fucking files are in my shit dawg
+      uses: ls
+
     # - name: Deploy to App Engine
     #   run: gcloud app deploy --verbosity=debug
     #   working-directory: ./pick-perfect-ui
