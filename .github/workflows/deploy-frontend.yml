@@ -54,4 +54,4 @@ jobs:
         echo "$GCP_SA_KEY_JSON" > $HOME/gcloud.json
         gcloud auth activate-service-account --key-file=$HOME/gcloud.json
         gcloud config set project $PROJECT_ID
-        gcloud app deploy ./pick-perfect-ui/app.yaml --verbosity=debug
+        gcloud app deploy ./pick-perfect-ui/app.yaml --quiet
