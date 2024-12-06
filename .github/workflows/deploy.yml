@@ -45,13 +45,11 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Deploy to App Engine
-      run: gcloud app deploy --verbosity=debug
-      working-directory: ./pick-perfect-ui
     # - name: Deploy to App Engine
-    #   id: deploy
-    #   uses: google-github-actions/deploy-appengine@v2.1.4
-    #   with:
-    #     deliverables: ./pick-perfect-ui/app.yaml
-    #     version: v1
-    #     project_id: ${{ secrets.GCP_PROJECT_ID }}
+    #   run: gcloud app deploy --verbosity=debug --service_account=
+    #   working-directory: ./pick-perfect-ui
+    - name: Deploy to App Engine
+      uses: google-github-actions/deploy-appengine@v2
+      with:
+        deliverables: ./pick-perfect-ui/app.yaml
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
