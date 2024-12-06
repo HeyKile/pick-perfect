@@ -50,6 +50,9 @@ jobs:
     #     project_id: ${{ secrets.GCP_PROJECT_ID }}
     # - name: Deploy to App Engine
     #   run: gcloud app deploy ./pick-perfect-ui/app.yaml --project ${{ secrets.GCP_PROJECT_ID }} --promote --verbosity=debug
+    - name: Check GCP_SA_KEY
+      run: echo ${{ secrets.GCP_APPENGINE_SA }}
+
     - name: Deploy to Google App Engine
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
