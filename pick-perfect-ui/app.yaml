@@ -1,8 +1,23 @@
+# runtime: nodejs20
+# service: pick-perfect-ui
+# handlers:
+#   - url: /
+#     static_files: build/index.html
+#     upload: build/index.html
+#   - url: /
+#     static_dir: build
 runtime: nodejs20
 service: pick-perfect-ui
 handlers:
-  - url: /
+  - url: /static/(.*)
+    static_files: build/static/\1
+    upload: build/static/(.*)
+    secure: always
+  - url: /(.*\.(json|ico|js|css|png))$
+    static_files: build/\1
+    upload: build/.*\.(json|ico|js|css|png)$
+    secure: always
+  - url: /.*
     static_files: build/index.html
     upload: build/index.html
-  - url: /
-    static_dir: build
+    secure: always
