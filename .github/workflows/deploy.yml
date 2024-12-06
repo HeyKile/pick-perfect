@@ -18,14 +18,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v2
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.GCP_APPENGINE_SA }}
-        # credentials_json: ${{ secrets.GCP_APPENGINE_SA_KEY }}
-
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
@@ -38,6 +30,13 @@ jobs:
     - name: Build the React app
       run: npm run build
       working-directory: ./pick-perfect-ui
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.GCP_APPENGINE_SA }}
 
     - name: Deploy to App Engine
       uses: google-github-actions/deploy-appengine@v2
