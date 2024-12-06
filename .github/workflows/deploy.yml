@@ -46,7 +46,7 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     - name: what fucking files are in my shit dawg
-      run: ls
+      run: ls ./pick-perfect-ui
 
     # - name: Deploy to App Engine
     #   run: gcloud app deploy --verbosity=debug
@@ -55,6 +55,6 @@ jobs:
       id: deploy
       uses: google-github-actions/deploy-appengine@v2.1.4
       with:
-        deliverables: app.yaml
+        deliverables: pick-perfect-ui/app.yaml
         version: v1
         project_id: ${{ secrets.GCP_PROJECT_ID }}
