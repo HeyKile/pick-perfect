@@ -38,6 +38,11 @@ jobs:
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.GCP_GITHUB_ACTIONS_SA }}
 
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
     - name: Deploy to App Engine
       uses: google-github-actions/deploy-appengine@v2
       with:
