@@ -3,10 +3,10 @@ import { useState } from 'react';
 
 export default function Home() {
 
-  const [imageFile, setImageFile] = useState();
+  const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [response, setResponse] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [response, setResponse] = useState("");
 
   function handleFile(e) {
     const file = e.target.files[0];
@@ -32,7 +32,10 @@ export default function Home() {
           style={{ display: "none" }}
         />
         <label htmlFor="fileInput" className="file-upload-button">
-          Choose File
+          {imageFile  === null
+            ? "Choose File"
+            : "Change File"
+          }
         </label>
       </div>
       {preview &&
