@@ -48,6 +48,12 @@ jobs:
     - name: what fucking files are in my shit dawg
       run: ls ./pick-perfect-ui
 
+    - name: what if i cd into this bish
+      run: cd ./pick-perfect-ui
+
+    - name: now what if i ls again
+      run: ls
+
     # - name: Deploy to App Engine
     #   run: gcloud app deploy --verbosity=debug
     #   working-directory: ./pick-perfect-ui
@@ -55,6 +61,6 @@ jobs:
       id: deploy
       uses: google-github-actions/deploy-appengine@v2.1.4
       with:
-        deliverables: pick-perfect-ui/app.yaml
+        deliverables: app.yaml
         version: v1
         project_id: ${{ secrets.GCP_PROJECT_ID }}
