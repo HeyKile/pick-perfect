@@ -4,7 +4,7 @@ import os
 import google.generativeai as genai
 from flask import Flask, jsonify, request
 
-API_KEY = 'AIzaSyAYNeJZmLo6j8J-ZySt6zoHOtNq83hUWEE'
+API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=API_KEY)
 
