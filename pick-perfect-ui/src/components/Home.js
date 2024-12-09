@@ -73,12 +73,12 @@ export default function Home() {
             : "Change File"
           }
         </label>
-      </div>
       {preview &&
         <div className="bottom-container">
           <img className="uploaded-picture" src={preview} alt="Uploaded Preview"/>
         </div>
       }
+      </div>
       {imageFile && (
           <button onClick = {handleUpload} className = "file-upload-button">
             Ripe or Not?

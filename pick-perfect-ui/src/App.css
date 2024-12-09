@@ -17,6 +17,7 @@ html {
   border-radius: 100px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 20px;
 }
 
 .pick-perfect-home {
@@ -31,7 +32,6 @@ html {
 .file-upload-button {
   display: inline-block;
   padding: 10px 20px;
-  margin-bottom: 20px;
   background-color: #007BFF;
   color: #fff;
   cursor: pointer;
