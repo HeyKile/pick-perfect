@@ -38,12 +38,7 @@ export default function Home() {
         let ripe = '';
         console.log(responseData);
         console.log(responseData.ripe);
-        if(responseData.ripe === true){
-          ripe = "the plant is ripe!";
-        }
-        else{
-          ripe = "the plant is not ripe";
-        }
+        ripe = "Plant: " + responseData.plant + "<br>Ripe: " + responseData.ripe + "<br>" + "Confidence: " + (responseData.confidence * 100) + "%" + "<br><br>" + responseData.msg;
         setResponse(ripe);
       } catch (e) {
         console.error('Error with image', e);
@@ -96,7 +91,7 @@ export default function Home() {
           {response.error ? (
             <p> Error: {response.error} </p>
           ) : (
-            <pre>{JSON.stringify(response,null, 2)}</pre>
+            <p dangerouslySetInnerHTML={{__html: response}}></p>
           )}
         </div>
       )}
