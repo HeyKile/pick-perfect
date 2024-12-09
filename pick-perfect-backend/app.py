@@ -3,22 +3,17 @@ import os
 
 import google.generativeai as genai
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from dotenv import load_dotenv
 
-load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=API_KEY)
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route("/api/generate", methods=["POST"])
 def generate_api():
     if request.method == "POST":
         if API_KEY == '':
-            print("API_KEY is empty. Please set the environment variable.")
             return jsonify({ "error": '''
                 To get started, get an API key at
                 https://g.co/ai/idxGetGeminiKey and enter it in
@@ -26,11 +21,8 @@ def generate_api():
                 '''.replace('\n', '') }), 403
         try:
             req_body = request.get_json()
-            print("Received request body:", req_body)
-            content = req_body.get("image")
+            content = req_body.get("base64image")
             img_type = req_body.get("img_type")
-            print("Image type:", img_type) 
-            print("Base64 image length:", len(content))
             generation_config = {
               "temperature": 1,
               "top_p": 0.95,
@@ -51,7 +43,6 @@ def generate_api():
             print(response.text)
             return jsonify({"response" : response.text})
         except Exception as e:
-            print(f"An error occurred: {e}") 
             return jsonify({ "error": str(e) }), 500
 
 

@@ -24,20 +24,27 @@ export default function Home() {
     console.log("upload started");
 
     const reader = new FileReader();
-    reader.onloadend = async () => {
-      const images = reader.result.split(',')[1];
-      const imgType = imageFile.type;
-
-      console.log("image type: ", imgType);
-      console.log("base64 image length: ", images.length);
-
+    reader.onloadend = async () => { // once image is fully uploaded
+      const images = reader.result.split(',')[1]; // extracts actual image
+      const imgType = imageFile.type; 
+      console.log(images);
+      console.log(imgType);
       try {
-        const res = await axios.post('http://localhost:8080/api/generate', {
-          image: images,
+        const res = await axios.post('https://pick-perfect-api-image-736056241127.us-central1.run.app/api/generate', {
+          base64image: images,
           img_type: imgType,
         });
-        console.log("response received: ", res.data);
-        setResponse(res.data.response);
+        const responseData = JSON.parse(res.data.response);
+        let ripe = '';
+        console.log(responseData);
+        console.log(responseData.ripe);
+        if(responseData.ripe === true){
+          ripe = "the plant is ripe!";
+        }
+        else{
+          ripe = "the plant is not ripe";
+        }
+        setResponse(ripe);
       } catch (e) {
         console.error('Error with image', e);
         setResponse({error: 'error with image'});
@@ -71,8 +78,9 @@ export default function Home() {
             : "Change File"
           }
         </label>
+        <p></p>
         {imageFile && (
-          <button onClick = {handleUpload} className = "upload-button">
+          <button onClick = {handleUpload} className = "file-upload-button">
             Upload
           </button>          
         )}
