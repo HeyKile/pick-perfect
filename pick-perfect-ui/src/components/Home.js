@@ -73,18 +73,17 @@ export default function Home() {
             : "Change File"
           }
         </label>
-        <p></p>
-        {imageFile && (
-          <button onClick = {handleUpload} className = "file-upload-button">
-            Upload
-          </button>          
-        )}
       </div>
       {preview &&
         <div className="bottom-container">
           <img className="uploaded-picture" src={preview} alt="Uploaded Preview"/>
         </div>
       }
+      {imageFile && (
+          <button onClick = {handleUpload} className = "file-upload-button">
+            Ripe or Not?
+          </button>          
+      )}
       {isLoading && <p>Loading...</p>}
       {response && (
         <div className = "response-container">
@@ -95,6 +94,7 @@ export default function Home() {
           )}
         </div>
       )}
+      <br></br><br></br>
     </div>
   );
 }
