@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
 
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [response, setResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState("");
 
   function handleFile(e) {
     const file = e.target.files[0];
@@ -14,6 +15,39 @@ export default function Home() {
       setImageFile(file);
       setPreview(URL.createObjectURL(file));
     }
+  }
+
+  async function handleUpload(){
+    if(!imageFile) return;
+    setIsLoading(true);
+    setResponse("");
+    console.log("upload started");
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const images = reader.result.split(',')[1];
+      const imgType = imageFile.type;
+
+      console.log("image type: ", imgType);
+      console.log("base64 image length: ", images.length);
+
+      try {
+        const res = await axios.post('http://localhost:8080/api/generate', {
+          image: images,
+          img_type: imgType,
+        });
+        console.log("response received: ", res.data);
+        setResponse(res.data.response);
+      } catch (e) {
+        console.error('Error with image', e);
+        setResponse({error: 'error with image'});
+      } finally {
+        setIsLoading(false);
+        console.log("upload finished");
+      }
+    };
+
+    reader.readAsDataURL(imageFile);
   }
 
   return (
@@ -37,13 +71,27 @@ export default function Home() {
             : "Change File"
           }
         </label>
+        {imageFile && (
+          <button onClick = {handleUpload} className = "upload-button">
+            Upload
+          </button>          
+        )}
       </div>
       {preview &&
         <div className="bottom-container">
-          <text>Huge</text>
           <img className="uploaded-picture" src={preview} alt="Uploaded Preview"/>
         </div>
       }
+      {isLoading && <p>Loading...</p>}
+      {response && (
+        <div className = "response-container">
+          {response.error ? (
+            <p> Error: {response.error} </p>
+          ) : (
+            <pre>{JSON.stringify(response,null, 2)}</pre>
+          )}
+        </div>
+      )}
     </div>
   );
 }
