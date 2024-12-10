@@ -18,6 +18,8 @@ When gardening, it can be tough to discern exactly when a fruit/vegetable is rea
 
 The is a front-end interface for users to interact with, allowing them to upload photos of their plants to check growth stage. The backend processed the image from the front end, using an AI-powered image processing to determine the growth stage. The response is then sent back to the user, allowing them to take the next steps. Currently, we are looking to use Firebase, Cloud Run, and Vision AI to implement the project. 
 
+![overview](./Flow.jpg)
+
 ## CI/CD Description
 ### Frontend
 - The frontend code is a simple React application hosted and stored using GCP Services
