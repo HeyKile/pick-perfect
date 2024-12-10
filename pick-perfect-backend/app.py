@@ -3,12 +3,14 @@ import os
 
 import google.generativeai as genai
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=API_KEY)
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/api/generate", methods=["POST"])
 def generate_api():
