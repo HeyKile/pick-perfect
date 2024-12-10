@@ -10,7 +10,7 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=API_KEY)
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "https://pick-perfect-ui-dot-mineral-cell-433922-k7.ue.r.appspot.com"}})
 
 @app.route("/api/generate", methods=["POST"])
 def generate_api():
