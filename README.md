@@ -17,6 +17,7 @@ When gardening, it can be tough to discern exactly when a fruit/vegetable is rea
 ## Project Structure:
 
 There is a front-end interface for users to interact with, allowing them to upload photos of their plants to check growth stage. The backend processed the image from the front end, using an AI-powered image processing to determine the growth stage. The response is then sent back to the user, allowing them to take the next steps. We used **Cloud Run, App engine, Gemini AI, Cloud Build API, Cloud Storage Bucket and Artifact Registry** for this project.
+
 ---
 ![overview](./Flow.jpg)
 ---
