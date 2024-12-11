@@ -1,5 +1,8 @@
 # Pick Perfect
 
+## Repository
+https://github.com/HeyKile/pick-perfect?tab=readme-ov-file
+
 ## Group Members:
 
 · Kyle Bello
